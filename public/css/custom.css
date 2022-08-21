@@ -1,0 +1,122 @@
+body {
+    /* background-image: url(/images/grunge-pattern.jpg); */
+    /* background-image: url(/images/green.jpg);
+    background-image: url(/images/green.jpg);
+    background-repeat: no-repeat;
+    background-size: cover; */
+    background-color: #F8F8F8;
+}
+#logo {
+    height: 30px;
+    width: 30px;
+}
+.timer-div{
+    display: flex;
+    gap:1em
+}
+
+#task_input{
+    width: 100%;
+}
+
+.radius-50p {
+    border-radius: 50%;
+}
+
+.custom-container {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    background-color: #fff;
+}
+
+.table-div {
+    margin-top: 5%;
+}
+
+.lpad-0 {
+    padding-left: 0px !important;
+}
+.bold {
+    font-weight: bold;
+}
+.mb-10px {
+    margin-bottom: 10px;
+}
+#tasks-table_length {
+    display: none !important;
+}
+
+#general_timer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 10vw;
+    height: 10vh;
+    background: white;
+    border: 1px solid #ccc;
+    border-top-right-radius:  4px;
+    border-top-left-radius:  4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+}
+
+.header {
+    background: #247C77 !important;
+}
+.navbar-light .navbar-nav .nav-link {
+    color:#fff;
+}
+table.dataTable thead > tr > th.sorting, table.dataTable thead > tr > th.sorting_asc {
+    border-top: none !important;
+}
+.btn-play {
+    background-color: #fff;
+    color: #A8DE00;
+    border: 1px solid #A8DE00;
+    margin:auto;
+    text-align:center;
+    padding: 0px !important;
+    width: 35px;
+    height: 35px;
+}
+.btn-play:hover{
+    background-color: #A8DE00;
+    color: #fff;
+}
+
+.btn-stop {
+    background-color: #fff;
+    color: #e3342f;
+    border: 1px solid #e3342f;
+    margin:auto;
+    text-align:center;
+    padding: 0px !important;
+    width: 35px;
+    height: 35px;
+}
+.btn-stop:hover{
+    background-color: #e3342f;
+    color: #fff;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+    background: #247C77 !important;
+    color:#fff !important;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    background: #2a918b !important;
+    color:#fff !important;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    padding: 5px 10px !important;
+}
+.worked {
+    color: red;
+    font-weight: bold;
+    margin-bottom: 0px;
+}
