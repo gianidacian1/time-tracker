@@ -32,7 +32,8 @@ body {
 }
 
 .table-div {
-    margin-top: 5%;
+    margin-top: 2%;
+    margin-bottom: 1%;
 }
 
 .lpad-0 {
@@ -63,6 +64,8 @@ body {
     justify-content: center;
     align-items: center; */
     font-size: 1.2rem;
+    padding: 0.375rem 0.75rem;
+    line-height: 1.6;
 }
 
 .header {
@@ -119,4 +122,16 @@ table.dataTable thead > tr > th.sorting, table.dataTable thead > tr > th.sorting
     color: red;
     font-weight: bold;
     margin-bottom: 0px;
+}
+.swal2-popup  {
+    font-size: 1em !important;
+}
+#tasks-table_filter {
+    display: none !important;
+}
+.table th {
+    border-top: none !important
+}
+#time_worked {
+    font-weight: bold;
 }

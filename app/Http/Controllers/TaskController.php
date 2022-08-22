@@ -84,7 +84,7 @@ class TaskController extends Controller
         ];
 
         $messages = [
-            'name.required'   => 'Please give this address a name.',
+            'name.required'   => 'The name field is required.',
         ];
 
         $validator = Validator::make($inputs, $rules, $messages);
@@ -96,11 +96,18 @@ class TaskController extends Controller
         $data['user_id'] = auth()->user()->id;
         $data['name']    = $request->name ? $request->name : '';
         $result          = ['succes' =>false];
+        $new             = false;
 
         if(count($data)) {
             try {
-                $task = Task::create($data);
-                $result = ['succes' => true, 'message' => 'Task succesfully added.', 'data' => $task];
+                $task = Task::where("name", $data["name"])->first();
+
+                if(is_null($task)) {
+                    $task = Task::create($data);
+                    $new = true;
+                }
+
+                $result = ['succes' => true, 'data' => $task, 'new' => $new];
             } catch (\Throwable $th) {
                 $result = ['succes' => false, 'message' => $th->getMessage()];
             }
@@ -141,11 +148,14 @@ class TaskController extends Controller
      */
     public function updateTime(Request $request)
     {
-        $task_id  = $request->task_id ? $request->task_id : '';
-        $end_date = date('Y-m-d h:i:s') ;
-        $action   = $request->action ? $request->action : '';
-        $result   = ['succes' => false];
-        $duration = 0;
+        $task_id    = $request->task_id    ? $request->task_id    : '';
+        $start_date = $request->start_date ? $request->start_date : '';
+        $end_date   = $request->end_date   ? $request->end_date   : '';
+        $action     = $request->action     ? $request->action     : '';
+
+        $result     = ['succes' => false];
+        $duration   = 0;
+
         if($task_id) {
             try {
                 if($action == 'stop-time') {
@@ -164,7 +174,7 @@ class TaskController extends Controller
 
                     $data = [
                         'task_id'    => $task_id,
-                        'start_date' => date('Y-m-d h:i:s')
+                        'start_date' => $start_date
                     ];
                    
                     TaskTime::create($data);

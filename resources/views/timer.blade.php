@@ -11,12 +11,17 @@
             <button class="btn btn-danger d-none"  id="stop" onclick="stopTimer()">Stop</button>
         </div>
         <div id="general_timer" data-intervalId="">
-            <!-- <div>Nume task</div> -->
             <div class="timer-text" id="general_timer_text">
-                <span class="hours bold">00</span>:<span class="minutes bold">00</span>:<span class="seconds">00</span>
+                <span class="hours ">00</span>:<span class="minutes ">00</span>:<span class="seconds">00</span>
             </div>
         </div>
     </div>
+</div>
+
+<div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+  <div class="toast-body">
+    Heads up, toasts will stack automatically
+  </div>
 </div>
 
 <div class="container custom-container">
@@ -29,22 +34,27 @@
             
         </div> -->
     <div class="table-responsive table-div">
+        <div class="d-flex justify-content-end">
+            <div>
+                <span class="">Total today: </span><span id="time_worked">{{$time_worked}}</span>
+            </div>
+            
+        </div>
         <table id="tasks-table" class="table table-hover ">
             <thead>
                 <tr>
                     <th></th>
                     <th>Title</th>
                     <th>Status</th>
-                    <th>Date</th>
-                    <th>Start</th>
-                    <th>End</th>
                     <th>Time</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody id="tasks-body">
                 @if($tasks->isEmpty())
-                    <tr colspsan="5">No data</tr>
+                    <tr colspsan="8" class="text-center">
+                        <td >No data</td>
+                    </tr>
                 @else
                     @foreach($tasks as $key => $task)
                         <tr id="task_{{$task->id}}">
@@ -53,9 +63,6 @@
                             </td>
                             <td>{{$task->name}}</td>
                             <td>{{$task->status}}</td>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
                             <td>
                                 {!!$task->TotalTimeHtml!!}
                             </td>
@@ -70,7 +77,6 @@
         </table>
     </div>
 </div>
-
 
 @endsection
 

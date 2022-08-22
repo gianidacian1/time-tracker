@@ -1,7 +1,6 @@
 /*  Add project to UI */
 function addTask() {
     let name = $('#task_input').val()
-
     
     //save to db
     $.ajax({
@@ -12,6 +11,7 @@ function addTask() {
         success: function (res) {
             if(res.errors) {
                 const errors = res.errors;
+
                 let html = '<ul>';
 
                 Object.values(errors).forEach(val => {
@@ -19,22 +19,27 @@ function addTask() {
                   });
                 html = html + '</ul>';
                 
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'error',
-                    title: html,
-                    showConfirmButton: false,
-                    timer: 1500
-                  })
+                alertify.error(html);
+
+                // Swal.fire({
+                //     position: 'top-end',
+                //     icon: 'error',
+                //     title: html,
+                //     showConfirmButton: false,
+                //     timer: 1500
+                //   })
                 return false;
             }
-
+            
             $('#start').addClass('d-none');
             $('#stop').removeClass('d-none');
             let data = res.data
             $('#current_task').val(data.id);
             //append html
             startTimer(data.id);
+            if(res.new) {
+                appendTask(data);
+            }
            
         }
     }).fail(function (res) {
@@ -47,34 +52,27 @@ function appendTask(data) {
     const id   = data.id
     const name = data.name
 
-    // Create markup
-    const html = `
-    <tr class="tasks" id="task_${id}">
-        <td id="task_id_${id}">${name}</td>
-        <td id="task_status_${id}">Backlog</td>
-        <td>
-            <div id="timer_${id}" data-intervalId="">
-                <p class="timer-text">
-                    <span class="hours">00</span>:<span class="minutes">00</span>:<span class="seconds">00</span>
-                </p>
-            </div>
-        </td>
-        <td>
-            <button class="btn btn-success radius-50p" id="start_${id}" onclick="startTimer(${id})">
-                <i class="fa fa-play"></i>
-            </button>
-            <button class="btn btn-success radius-50p d-none" id="stop_${id}" onclick="stopTimer(${id})">
-                <i class="fa fa-stop"></i>
-            </button>
-            <button class="btn btn-danger radius-50p"><i class="fa fa-times"></i></button>
-        </td>
-        
-    </tr>
-    `;
-    // Insert the HTML into the DOM
-    $('#tasks-body').append(html);
+    const tr = `
+            <tr id="task_${data.id}">
+                <td>
+                    <input type="checkbox" name="" class="" id="check" onclick="changeStatus(${data.id})">
+                </td>
+                <td>${data.name}</td>
+                <td>${data.status}</td>
+                <td>
+                    <div id="timer_${data.id}" data-intervalid="">
+                        <p class="timer-text"><span class="hours">00</span>:<span class="minutes">00</span>:<span class="seconds">00</span></p>
+                    </div>
+                    
+                </td>
+                <td>
+                    <button class="btn btn-stop radius-50p" onclick="deleteTask(${data.id})"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                </td>
+            </tr>
+        `;
+        $('#tasks-body').append(tr);
     clearField();
-    startTimer(id);
+    // startTimer(id);
 }
 
 /* Delete task */
@@ -112,20 +110,14 @@ function deleteTask(task_id) {
 /* Start Timer */
 function startTimer(task_id, time) {
     startActions(task_id);
-   
+
+    let dt = moment();
     let postData = {
         task_id: task_id,
+        start_date: dt.format('YYYY-MM-DD h:mm:ss'),
         action: "start-time"
     }
-    //update to db
-    $.ajax({
-        url: '/task/update-time',
-        method: 'post',
-        data: postData,
-        success: function (result) {
-            
-        }
-    });
+    
     
     let seconds =  0;
    
@@ -137,19 +129,23 @@ function startTimer(task_id, time) {
         let name = $('#task_'+task_id).find('td').eq(1).text();
 
         let timer = `
-            <div>${name}</div>
-                <div class="timer-text" id="general_timer_text">
-                <span><i class="fa fa-clock-o"></i></span>
-                <span class="hours bold">${time.hours}</span>:<span class="minutes bold">${time.min}</span>:<span class="seconds">${time.sec}</span>
-            </div>
+                    <div class="timer-text" id="general_timer_text">
+                        <span class="hours ">${time.hours}</span>:<span class="minutes ">${time.min}</span>:<span class="seconds">${time.sec}</span>
+                    </div>
            `;
 
         $('#general_timer').empty().append(timer);
     }, 1000);
-    console.log('2222');
-    // $('#timer_'+task_id).data('intervalId', timeInterval);
-    // $('#timer_'+task_id).attr('data-intervalId', timeInterval);
-    // $('#general_timer').attr('data-intervalId', timeInterval);
+        //update to db
+        $.ajax({
+            url: '/task/update-time',
+            method: 'post',
+            data: postData,
+            success: function (result) {
+                
+            }
+        });
+    
         $('#time_interval').val(timeInterval);
     
     
@@ -171,11 +167,10 @@ function stopTimer() {
     $('#start').removeClass('d-none');
     $('#stop').addClass('d-none');
     let intervalId = $('#time_interval').val();;
-    // let dt = moment();
-    // end_date: dt.format('YYYY-MM-DD h:mm:ss'),
+    let dt = moment();
     let postData = {
         task_id: task_id,
-        
+        end_date: dt.format('YYYY-MM-DD h:mm:ss'),
         action: "stop-time"
     }
     
@@ -192,6 +187,8 @@ function stopTimer() {
     clearInterval(intervalId);
     resetTimer(task_id);
     stopActions(task_id);
+    clearField();
+    alertify.success("Time added.");
 }
 
 /* Helpers */
@@ -243,7 +240,7 @@ function resetTimer(task_id)
     $('#general_timer').attr('data-intervalid', '');
 
     let timer = `
-                <span><i class="fa fa-clock"></i></span> <span class="hours bold">00</span>:<span class="minutes bold">00</span>:<span class="seconds">00</span>
+                <span><i class="fa fa-clock"></i></span> <span class="hours ">00</span>:<span class="minutes ">00</span>:<span class="seconds">00</span>
     `;
 
     // $('#timer_'+task_id).empty().append(timer);
@@ -256,7 +253,7 @@ $(document).ready(function () {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       }
     });
-    var table = $('#tasks-table').DataTable({});
+    // var table = $('#tasks-table').DataTable({});
  
 });
 
