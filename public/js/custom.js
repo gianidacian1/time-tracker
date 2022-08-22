@@ -2,18 +2,43 @@
 function addTask() {
     let name = $('#task_input').val()
 
+    
     //save to db
     $.ajax({
         url: '/task/store',
         method: 'post',
         data: {name: name},
         dataType: "JSON",
-        success: function (result) {
-            let data = result.data
+        success: function (res) {
+            if(res.errors) {
+                const errors = res.errors;
+                let html = '<ul>';
+
+                Object.values(errors).forEach(val => {
+                    html = html + '<li>' + val + '</li>';
+                  });
+                html = html + '</ul>';
+                
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: html,
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
+                return false;
+            }
+
+            $('#start').addClass('d-none');
+            $('#stop').removeClass('d-none');
+            let data = res.data
+            $('#current_task').val(data.id);
             //append html
-            appendTask(data);
+            startTimer(data.id);
            
         }
+    }).fail(function (res) {
+        console.log(res.errors);
     });
 }
 
@@ -49,7 +74,7 @@ function appendTask(data) {
     // Insert the HTML into the DOM
     $('#tasks-body').append(html);
     clearField();
-    $('#start_'+id).trigger('click');
+    startTimer(id);
 }
 
 /* Delete task */
@@ -98,24 +123,17 @@ function startTimer(task_id, time) {
         method: 'post',
         data: postData,
         success: function (result) {
-            console.log(result);
+            
         }
     });
     
     let seconds =  0;
-
+   
     let timeInterval = setInterval(() => {
         seconds++;
 
         let time = formatTime(seconds);
-
-        // let timer = `
-        //     <p class="timer-text" >
-        //         <span class="hours">00</span>:<span class="minutes">${min}</span>:<span class="seconds">${sec}</span>
-        //     </p>
-        // `;
-        
-        // $('#timer_'+task_id).empty().append(timer);
+       
         let name = $('#task_'+task_id).find('td').eq(1).text();
 
         let timer = `
@@ -128,11 +146,11 @@ function startTimer(task_id, time) {
 
         $('#general_timer').empty().append(timer);
     }, 1000);
-
+    console.log('2222');
     // $('#timer_'+task_id).data('intervalId', timeInterval);
-    $('#timer_'+task_id).attr('data-intervalId', timeInterval);
-    $('#general_timer').attr('data-intervalId', timeInterval);
-
+    // $('#timer_'+task_id).attr('data-intervalId', timeInterval);
+    // $('#general_timer').attr('data-intervalId', timeInterval);
+        $('#time_interval').val(timeInterval);
     
     
 }
@@ -147,8 +165,12 @@ function formatTime(seconds)
     return time
 }
 /* Stop timer and clear the intervalId */
-function stopTimer(task_id) {
-    let intervalId = $('#timer_'+task_id).data('intervalid');
+function stopTimer() {
+    let task_id = $('#current_task').val();
+
+    $('#start').removeClass('d-none');
+    $('#stop').addClass('d-none');
+    let intervalId = $('#time_interval').val();;
     // let dt = moment();
     // end_date: dt.format('YYYY-MM-DD h:mm:ss'),
     let postData = {
@@ -156,6 +178,7 @@ function stopTimer(task_id) {
         
         action: "stop-time"
     }
+    
     //update to db
     $.ajax({
         url: '/task/update-time',
@@ -169,8 +192,6 @@ function stopTimer(task_id) {
     clearInterval(intervalId);
     resetTimer(task_id);
     stopActions(task_id);
-    
-    
 }
 
 /* Helpers */

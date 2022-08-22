@@ -23,6 +23,7 @@ class CreateTasksTable extends Migration
             $table->string('status')->default('Backlog')->nullable();
             $table->bigInteger('total_time')->default(0)->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

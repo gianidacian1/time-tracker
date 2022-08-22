@@ -7,6 +7,8 @@ use App\Models\Task;
 use App\Models\TaskTime;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
+use App\Http\Requests\StoreTaskRequest;
+use Validator;
 
 class TaskController extends Controller
 {
@@ -49,7 +51,7 @@ class TaskController extends Controller
         }
 
         $time_worked = $this->formatTime($time_worked);
-      
+        
         return view('timer')->with('tasks', $tasks)
                             ->with('time_worked', $time_worked);
     }
@@ -74,7 +76,23 @@ class TaskController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function store(Request $request)
-    {
+    {   
+        $inputs = $request->all();
+        
+        $rules = [
+            'name'    => 'required',
+        ];
+
+        $messages = [
+            'name.required'   => 'Please give this address a name.',
+        ];
+
+        $validator = Validator::make($inputs, $rules, $messages);
+
+        if ($validator->fails()) {
+            return response()->json(['success'=> false, 'errors'=> $validator->messages(), 'data' => [] ]);
+        }
+
         $data['user_id'] = auth()->user()->id;
         $data['name']    = $request->name ? $request->name : '';
         $result          = ['succes' =>false];

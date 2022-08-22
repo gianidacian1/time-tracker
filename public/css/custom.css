@@ -49,7 +49,7 @@ body {
 }
 
 #general_timer {
-    position: absolute;
+    /* position: absolute;
     bottom: 0;
     left: 0;
     width: 10vw;
@@ -61,7 +61,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: center; */
     font-size: 1.2rem;
 }
 
