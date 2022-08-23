@@ -1,16 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container justify-content-center custom-container mb-10px">
-    <div class="row">
-        <div class="col-md-8 ">
+<div class="container justify-content-center custom-container mb-10px search">
+    <div class="d-flex justify-content-between align-items-center">
+        <div class="w-75">
             <input placeholder="What are you working on?" type="text" class="form-control" name="" id="task_input">
         </div>
-        <div class="col-md-2">
-            <button class="btn btn-dark" id="start" onclick="addTask()">Start</button>
+        <div class="w-10">
+            <button class="btn btn-play" id="start" onclick="addTask()">Start</button>
             <button class="btn btn-danger d-none"  id="stop" onclick="stopTimer()">Stop</button>
         </div>
-        <div id="general_timer" data-intervalId="">
+        <div class="w-10" id="general_timer" data-intervalId="">
             <div class="timer-text" id="general_timer_text">
                 <span class="hours ">00</span>:<span class="minutes ">00</span>:<span class="seconds">00</span>
             </div>
@@ -18,13 +18,8 @@
     </div>
 </div>
 
-<div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-  <div class="toast-body">
-    Heads up, toasts will stack automatically
-  </div>
-</div>
 
-<div class="container custom-container">
+<div class="container custom-container shadow">
         <input type="hidden" name="" id="current_task" value="">
         <input type="hidden" name="" id="time_interval" value="">
 

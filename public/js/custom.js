@@ -12,22 +12,15 @@ function addTask() {
             if(res.errors) {
                 const errors = res.errors;
 
-                let html = '<ul>';
+                let html = '';
 
                 Object.values(errors).forEach(val => {
-                    html = html + '<li>' + val + '</li>';
+                    // html = html + '<li>' + val + '</li>';
+                    html = '<div>' +  val + '</div>';
                   });
-                html = html + '</ul>';
                 
                 alertify.error(html);
-
-                // Swal.fire({
-                //     position: 'top-end',
-                //     icon: 'error',
-                //     title: html,
-                //     showConfirmButton: false,
-                //     timer: 1500
-                //   })
+             
                 return false;
             }
             
@@ -71,7 +64,6 @@ function appendTask(data) {
             </tr>
         `;
         $('#tasks-body').append(tr);
-    clearField();
     // startTimer(id);
 }
 
@@ -254,7 +246,12 @@ $(document).ready(function () {
       }
     });
     // var table = $('#tasks-table').DataTable({});
- 
+    $('#task_input').on('keypress', function(event){
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        if(keycode == '13'){
+            $('#start').trigger('click');	
+        }
+    })
 });
 
 window.onload = function () {
