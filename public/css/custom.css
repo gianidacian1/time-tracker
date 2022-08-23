@@ -204,3 +204,10 @@ table.dataTable thead > tr > th.sorting, table.dataTable thead > tr > th.sorting
 #app_name:hover{
     color:#1d9a1d;
 }
+orm-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #1d9a1d;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(52, 220, 74, 0.25);
+}
