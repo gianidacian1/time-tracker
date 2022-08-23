@@ -60,7 +60,7 @@
                     @foreach($tasks as $key => $task)
                         <tr id="task_{{$task->id}}">
                             <td>
-                                <input type="checkbox" data-toggle="tooltip" data-placement="top" title="Complete task" name="" class="" id="check" onclick="changeStatus({{$task->id}})">
+                                <input type="checkbox" data-toggle="tooltip" data-placement="top" title="Mark task as completed" name="" class="" id="check_{{$task->id}}" onclick="changeStatus({{$task->id}})">
                             </td>
                             <td>
                                 <span onclick="showHistory({{$task->id}}, 'show')" id="show_history_{{$task->id}}" class="">
@@ -76,26 +76,27 @@
                                 {!!$task->TotalTimeHtml!!}
                             </td>
                             <td>
-                                <button class="btn btn-stop " onclick="deleteTask({{$task->id}})"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                <button class="btn btn-stop " data-toggle="tooltip" data-placement="top" title="Delete task"  onclick="deleteTask({{$task->id}})"><i class="fa fa-trash" aria-hidden="true"></i></button>
                             </td>
                         </tr>
                         @if($task->history)
                             
-                            <tr id="child_header_{{$task->id}}" class=" border-top d-none">
+                            <tr id="child_header_{{$task->id}}" class="border-top d-none" >
                                 <th></th>
                                 <th></th>
-                                <th>Start Date</th>
-                                <th>End Date</th>
+                                <th class="child-header">Start Date</th>
+                                <th class="child-header">End Date</th>
+                                <th></th>
                             </tr>
                             @foreach($task->history as $key=>$history)
-                                <tr id="" class="{{$key+1 == count($task->history) ? 'border-bottom' : ''}} d-none child_body_{{$task->id}}">
+                                <tr id="" class="{{$key+1 == count($task->history) ? 'border-bottom' : ''}} d-none child_body_{{$task->id}} " >
                                     <td></td>
                                     <td></td>
-                                    <td>{{$history->start_date}}</td>
-                                    <td>{{$history->end_date}}</td>
+                                    <td class="child-body" style="background: #e9ecef8a;">{{$history->start_date}}</td>
+                                    <td class="child-body" style="background: #e9ecef8a;">{{$history->end_date}}</td>
+                                    <td></td>
                                 </tr>
                             @endforeach
-                           
                         @endif
                     @endforeach
                 @endif

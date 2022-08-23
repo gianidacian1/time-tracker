@@ -199,19 +199,41 @@ function updateTaskTotalTime(task_id, time) {
 }
 
 function changeStatus(task_id) {
-    let postData = {
-        task_id: task_id,
-        status: "Done"
-    }
-    //update to db
-    $.ajax({
-        url: '/task/update',
-        method: 'post',
-        data: postData,
-        success: function (res) {
-           console.log(res);
-        }
-    });
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, mark is as done!'
+            }).then((result) => {
+            if (result.isConfirmed) {
+                let postData = {
+                    task_id: task_id,
+                    status: "Done"
+                }
+                //update to db
+                $.ajax({
+                    url: '/task/update',
+                    method: 'post',
+                    data: postData,
+                    success: function (res) {
+                       console.log(res);
+                    }
+                });
+                $('#task_'+task_id).remove()
+                // Swal.fire(
+                // 'Deleted!',
+                // 'Your file has been deleted.',
+                // 'success'
+                // )
+            } else {
+                $('#check_'+task_id).prop('checked', false);
+            }
+        })
+
+    
 }
 /* Clear input */
 function clearField() {

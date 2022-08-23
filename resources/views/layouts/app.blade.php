@@ -47,7 +47,7 @@
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <img id="logo" src="{{asset('/images/logo2.png')}}" alt="">
-                    <span style="color:#fff">Time Tracker</span>
+                    <span id="app_name">Time Tracker</span>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>

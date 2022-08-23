@@ -84,6 +84,13 @@ body {
 .border-bottom {
     border-bottom: 2px solid #000;
 }
+.child-header{
+    background: #247C77;
+    color: #fff;
+}
+.child-body {
+    background: rgba(233, 236, 239, 0.54);
+}
 .showHistory {
     font-size: 1em;
     color: green;
@@ -112,7 +119,7 @@ table.dataTable thead > tr > th.sorting, table.dataTable thead > tr > th.sorting
     height: 35px; */
 }
 .navbar-light .navbar-nav .nav-link:hover, .navbar-light .navbar-nav .nav-link:focus {
-    color:#eee;
+    color:#1d9a1d;
 }
 .no-gutter{
     padding-left: 0px;
@@ -172,7 +179,7 @@ table.dataTable thead > tr > th.sorting, table.dataTable thead > tr > th.sorting
 #time_worked {
     font-weight: bold;
 }
-.table-hover tbody tr:hover {
+.table-hover tbody tr:not(.child-body):hover {
     color: #212529;
     background-color: #1d9a1d38;
 }
@@ -190,3 +197,10 @@ table.dataTable thead > tr > th.sorting, table.dataTable thead > tr > th.sorting
         width: 11%;
     }
   }
+#app_name {
+    color:#fff;
+}
+
+#app_name:hover{
+    color:#1d9a1d;
+}
