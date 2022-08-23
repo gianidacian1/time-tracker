@@ -34,7 +34,7 @@ class TaskController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Show the task list.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
@@ -57,7 +57,7 @@ class TaskController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Show the task listk for api.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
@@ -71,7 +71,7 @@ class TaskController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Create or update task
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
@@ -79,6 +79,7 @@ class TaskController extends Controller
     {   
         $inputs = $request->all();
         
+        //validation
         $rules = [
             'name'    => 'required',
         ];
@@ -117,7 +118,7 @@ class TaskController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Update task fields.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
@@ -142,7 +143,7 @@ class TaskController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Update task time -> start/stop timer.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
@@ -191,7 +192,7 @@ class TaskController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Soft Delete task.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
@@ -215,6 +216,9 @@ class TaskController extends Controller
         return response()->json($result);
     }
 
+    /**
+     * Helper function for formating time
+     */
     public function formatTime($time)
     {
         $value = is_null($time) ? (int)$this->total_time : $time;
@@ -226,5 +230,21 @@ class TaskController extends Controller
 
         $time = $hours . 'h ' . $min . 'min';
         return $time;
+    }
+
+    /**
+     * Get history of a task
+     */
+    public function getHistory(Request $request) {
+        $task_id = $request->task_id ? $request->task_id : '';
+        $result  = ['success' => false];
+
+        if($task_id) {
+            $history = TaskTime::where('task_id', $task_id)->orderBy('start_date')->get();
+
+            $result = ['success' => true, 'data' => $history];
+        }
+
+        return response()->json($result);
     }
 }

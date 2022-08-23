@@ -18,8 +18,10 @@ function addTask() {
                     // html = html + '<li>' + val + '</li>';
                     html = '<div>' +  val + '</div>';
                   });
-                
-                alertify.error(html);
+                //   alertify.set('notifier','position', 'top-center');
+                // alertify.error(html);
+                showError(html);
+               
              
                 return false;
             }
@@ -125,7 +127,9 @@ function startTimer(task_id, time) {
                         <span class="hours ">${time.hours}</span>:<span class="minutes ">${time.min}</span>:<span class="seconds">${time.sec}</span>
                     </div>
            `;
+        let title = time.hours + ':' + time.min + ':' + time.sec;
 
+        $('title').html(title);
         $('#general_timer').empty().append(timer);
     }, 1000);
         //update to db
@@ -212,6 +216,7 @@ function changeStatus(task_id) {
 /* Clear input */
 function clearField() {
     $('#task_input').val('');
+    $('title').html('Time tracker');
 }
 
 /* Toggle "start/stop" buttons */
@@ -239,6 +244,31 @@ function resetTimer(task_id)
     $('#general_timer_text').empty().append(timer);
 }
 
+function showError(html) {
+    $('#error-div').fadeIn().removeClass('d-none');
+    $('#error-message').append(html);
+    setTimeout(() => {
+        $('#error-div').fadeOut(1000).addClass('d-none');
+        $('#error-message').empty();
+    }, 3000);
+}
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+})
+function showHistory(task_id, action) {
+    if(action == "show") {
+        $('#show_history_'+task_id).addClass('d-none');
+        $('#hide_history_'+task_id).removeClass('d-none');
+        $('#child_header_'+task_id).removeClass('d-none');
+        $('.child_body_'+task_id).removeClass('d-none');
+    } else {
+        $('#show_history_'+task_id).removeClass('d-none');
+        $('#hide_history_'+task_id).addClass('d-none');
+        $('#child_header_'+task_id).addClass('d-none');
+        $('.child_body_'+task_id).addClass('d-none');
+    }
+    
+}
 $(document).ready(function () {
     $.ajaxSetup({
       headers: {

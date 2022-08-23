@@ -29,4 +29,5 @@ Route::prefix('/task')->name('taks.')->group(function(){
     Route::post('/update','TaskController@update')->name('update');
     Route::post('/update-time','TaskController@updateTime')->name('update-time');
     Route::post('/delete','TaskController@delete')->name('delete-task');
+    Route::post('/history','TaskController@getHistory')->name('history');
 });

@@ -59,4 +59,12 @@ class Task extends Model
 
         return $data;
     }
+
+    /**
+     * [coupons description]
+     * @return [type] [description]
+     */
+    public function history() {
+        return $this->hasMany('App\Models\TaskTime');
+    }
 }
