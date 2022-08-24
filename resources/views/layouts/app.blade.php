@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Time tracker') }}</title>
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <!-- <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"> -->
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/custom.js') }}" defer></script>
@@ -43,7 +43,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm header">
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm header {{ \Request::route()->getName() == 'login' ? 'd-none' : '' }}">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <img id="logo" src="{{asset('/images/logo2.png')}}" alt="">
@@ -63,9 +63,9 @@
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
+                            </li> -->
                             @if (Route::has('register'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
@@ -95,7 +95,7 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="py-4 {{ \Request::route()->getName() == 'login' ? 'login-background' : '' }}">
             @yield('content')
             @yield('page_styles')
             @yield('page_scripts')

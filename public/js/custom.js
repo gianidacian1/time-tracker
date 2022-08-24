@@ -178,6 +178,7 @@ function stopTimer() {
         success: function (res) {
             time = res.total_time
             updateTaskTotalTime(task_id, time);
+            updateTaskHistory(task_id, res.history)
         }
     });
     clearInterval(intervalId);
@@ -198,6 +199,21 @@ function updateTaskTotalTime(task_id, time) {
     $('#timer_'+task_id).empty().append(html);
 }
 
+function updateTaskHistory(task_id, history) {
+ 
+    //key calc length
+    let html = `
+            <tr id="" class="border-bottom  child_body_${task_id} " >
+                <td></td>
+                <td></td>
+                <td class="child-body" >${history.start_date}</td>
+                <td class="child-body" >${history.end_date}</td>
+                <td></td>
+            </tr>
+    `;
+   
+    $('.child_body_'+task_id+':last').after(html);
+}
 function changeStatus(task_id) {
         Swal.fire({
             title: 'Are you sure?',

@@ -181,7 +181,7 @@ class TaskController extends Controller
                     TaskTime::create($data);
                 }
                 // $task->update($data);
-                $result = ['succes' => true, 'message' => 'Task succesfully updated.', 'total_time' => $task->total_time ?? 0];
+                $result = ['succes' => true, 'message' => 'Task succesfully updated.', 'total_time' => $task->total_time ?? 0, 'history' => ['start_date'=> $task_time->start_date, 'end_date'=> $end_date]];
             } catch (\Throwable $th) {
                 $result = ['succes' => false, 'message' => $th->getMessage()];
                 Log::error( $th->getMessage() );

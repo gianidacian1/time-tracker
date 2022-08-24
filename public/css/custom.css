@@ -10,6 +10,10 @@ body {
     height: 30px;
     width: 30px;
 }
+#logo2 {
+    height: 40px;
+    width: 40px;
+}
 .timer-div{
     display: flex;
     gap:1em
@@ -48,12 +52,17 @@ body {
 .mb-10px {
     margin-bottom: 10px;
 }
-.w-75 {
-    width: 75%;
-}
 .w-10 {
     width: 10%;
 }
+.w-75 {
+    width: 75%;
+}
+.w-100 {
+    width: 75%;
+}
+
+
 #tasks-table_length {
     display: none !important;
 }
@@ -73,10 +82,57 @@ body {
     justify-content: center;
     align-items: center; */
     font-size: 1.2rem;
-    padding: 0.375rem 0.75rem;
+    /* padding: 0.375rem 0.75rem; */
+    padding: 10px 5px;
     line-height: 1.6;
-    color:#fff;
+    color:#000;
     text-align: center;
+}
+.login-button{
+    /* background-color: #104744 !important; */
+    background-color: #1d9a1d !important;
+    font-size: 1.4em;
+    color: #fff;
+    border-radius: 40px;
+}
+.login-button:hover{
+    background-color: #178017 !important;
+}
+.mb-5{
+    margin-bottom: 5%;
+}
+#login-div {
+    display: flex;
+    flex-wrap: wrap;
+    flex: 1 1 auto;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    height: 100vh;
+}
+.login-background {
+    background: url(/images/login-back4.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+}
+
+.form-container{
+    width: 45%;
+    padding: 6%;
+    background: #fff;
+    border: 1px solid #104744;
+    border-radius: 4px;
+    background: rgb(0 0 0 / 70%);
+}
+.login-title{
+    color: #104744;
+}
+.login-title2{
+    color: #fff;
+    margin-bottom: 10%;
+    text-align: center;
+    font-size: 2em;
 }
 .border-top {
     border-top: 2px solid #000;
@@ -97,10 +153,11 @@ body {
 }
 .header {
     /* background: #247C77 !important;104744 */
-    background: #000 !important;
+    /* background: #000 !important; */
+    background: #1d9a1d !important;
 }
 .search {
-    background: #1d9a1d;
+    /* background: #1d9a1d; */
 }
 .navbar-light .navbar-nav .nav-link {
     color:#fff;
@@ -109,8 +166,8 @@ table.dataTable thead > tr > th.sorting, table.dataTable thead > tr > th.sorting
     border-top: none !important;
 }
 .btn-play {
-    background-color: #fff;
-    color: #1d9a1d;
+    background-color: #104744;
+    color: #fff;
     /* border: 1px solid #A8DE00;
     margin:auto;
     text-align:center;
@@ -118,16 +175,25 @@ table.dataTable thead > tr > th.sorting, table.dataTable thead > tr > th.sorting
     width: 35px;
     height: 35px; */
 }
+.btn-play:hover{
+    background-color: #165c58;
+    color: #fff;
+}
+
 .navbar-light .navbar-nav .nav-link:hover, .navbar-light .navbar-nav .nav-link:focus {
-    color:#1d9a1d;
+    color:#000;
+}
+.green-back{
+    background-color: #1d9a1d;
+    color:#fff;
+}
+.card{
+    border: 2px solid #1d9a1d;
+    border-radius: 6px;
 }
 .no-gutter{
     padding-left: 0px;
     padding-right: 0px;
-}
-.btn-play:hover{
-    background-color: #104744;
-    color: #fff;
 }
 
 .btn-stop {
@@ -175,6 +241,7 @@ table.dataTable thead > tr > th.sorting, table.dataTable thead > tr > th.sorting
     border-radius: 4px !important;
     background-color: #104744;
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    color:#fff;
 }
 #time_worked {
     font-weight: bold;
@@ -188,6 +255,11 @@ table.dataTable thead > tr > th.sorting, table.dataTable thead > tr > th.sorting
     background: #1d9a1d !important;
     text-shadow: -1px -1px 0 rgba(0, 0, 0, 0,5);
 }
+@media only screen and (max-width: 1198px) {
+    .form-container {
+        width: 60%;
+    }
+  }
 
 @media only screen and (max-width: 991px) {
     #general_timer_text > span {
@@ -196,18 +268,47 @@ table.dataTable thead > tr > th.sorting, table.dataTable thead > tr > th.sorting
     #general_timer {
         width: 11%;
     }
+}
+@media only screen and (max-width: 767px) {
+    .task-div {
+        width: 60% !important;
+    }
+    #general_timer {
+        width: 15%;
+    }
+  }
+  @media only screen and (max-width: 415px) {
+    .task-div {
+        width:75% !important;
+    }
+    #general_timer {
+        width: 15%;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        color: #fff;
+    }
+    .start-div {
+        width: 15%;
+    }
   }
 #app_name {
     color:#fff;
 }
 
 #app_name:hover{
-    color:#1d9a1d;
+    color:#000;
 }
-orm-control:focus {
+.form-control:focus {
     color: #495057;
     background-color: #fff;
     border-color: #1d9a1d;
     outline: 0;
     box-shadow: 0 0 0 0.2rem rgba(52, 220, 74, 0.25);
+}
+.history-icon:hover{
+    color:#1d9a1d;
+}
+.custom-gray {
+    background: rgba(233, 236, 239, 0.54);
 }
