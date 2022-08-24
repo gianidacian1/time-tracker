@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container">
+
    <div id="login-div">
         <div class="form-container">
             <form method="POST" action="{{ route('login') }}">
@@ -40,10 +41,12 @@
                     </div>
                 </div>
                 @if (Route::has('password.request'))
-                            <a class="d-flex justify-content-center btn-link" href="{{ route('password.request') }}">
-                                {{ __('Forgot Your Password?') }}
-                            </a>
-                        @endif
+                    <a class="d-flex justify-content-center btn-link" href="{{ route('password.request') }}">
+                        {{ __('Forgot Your Password?') }}
+                    </a>
+                @endif
+                <span class="register">No account?  <a class="" href="{{ route('register') }}">{{ __('Register') }}</a></span>
+                
             </form>
         </div>
    </div>

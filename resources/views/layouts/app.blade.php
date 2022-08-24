@@ -43,7 +43,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm header {{ \Request::route()->getName() == 'login' ? 'd-none' : '' }}">
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm header {{ \Request::route()->getName() == 'login' || \Request::route()->getName() == 'register'  ? 'd-none' : '' }}">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <img id="logo" src="{{asset('/images/logo2.png')}}" alt="">
@@ -95,7 +95,7 @@
             </div>
         </nav>
 
-        <main class="py-4 {{ \Request::route()->getName() == 'login' ? 'login-background' : '' }}">
+        <main class="py-4 {{ \Request::route()->getName() == 'login' || \Request::route()->getName() == 'register' ? 'login-background' : '' }}">
             @yield('content')
             @yield('page_styles')
             @yield('page_scripts')

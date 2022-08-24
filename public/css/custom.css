@@ -121,7 +121,6 @@ body {
     width: 45%;
     padding: 6%;
     background: #fff;
-    border: 1px solid #104744;
     border-radius: 4px;
     background: rgb(0 0 0 / 70%);
 }
@@ -311,4 +310,18 @@ table.dataTable thead > tr > th.sorting, table.dataTable thead > tr > th.sorting
 }
 .custom-gray {
     background: rgba(233, 236, 239, 0.54);
+}
+.register {
+    display: flex;
+    justify-content: center;
+    color:#fff !important;
+    margin-top: 5%;
+}
+.register a {
+    margin-left: 5px;
+    color: #fff !important;
+    font-family: cursive;
+}
+.register a:hover {
+    color:#1d9a1d !important;
 }
