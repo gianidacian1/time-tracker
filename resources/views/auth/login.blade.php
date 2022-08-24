@@ -2,7 +2,6 @@
 
 @section('content')
 <div class="container">
-
    <div id="login-div">
         <div class="form-container">
             <form method="POST" action="{{ route('login') }}">
