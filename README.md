@@ -32,6 +32,20 @@ https://www.codegrepper.com/code-examples/php/Schema%3A%3AdefaultStringLength%28
 
 run "php artisan serve"
 
+# Scripts
+I added two scripts.
+
+<ol>
+    <li>
+        A script that receives parameters: start date, end date, task name.
+        <ul><li>Can be run with: php script1.php '2022-08-24' '2022-08-24' 'test'</li></ul>
+    </li>
+    <li>
+        A script that returns all tasks</p>
+        <ul><li>Can be run with: php script1.php '2022-08-24' '2022-08-24' 'test'</li></ul>
+    </li>
+</ol>
+
 # Improvements in the future.
 
 At the moment we add a task just by typing it, we can add more feature to it as:
