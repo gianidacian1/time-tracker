@@ -38,11 +38,11 @@ I added two scripts.
 <ol>
     <li>
         A script that receives parameters: start date, end date, task name.
-        <ul><li>Can be run with: php script1.php '2022-08-24' '2022-08-24' 'test'</li></ul>
+        <ul><li>Can be run with: <b>php script1.php '2022-08-24' '2022-08-24' 'test'</b></li></ul>
     </li>
     <li>
         A script that returns all tasks</p>
-        <ul><li>Can be run with: php script1.php '2022-08-24' '2022-08-24' 'test'</li></ul>
+        <ul><li>Can be run with: <b>php script2.php</b></li></ul>
     </li>
 </ol>
 
