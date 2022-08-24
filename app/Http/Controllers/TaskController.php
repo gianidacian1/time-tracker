@@ -96,12 +96,13 @@ class TaskController extends Controller
 
         $data['user_id'] = auth()->user()->id;
         $data['name']    = $request->name ? $request->name : '';
+        $data['status']  = 'In progress';
         $result          = ['succes' =>false];
         $new             = false;
 
         if(count($data)) {
             try {
-                $task = Task::where("name", $data["name"])->first();
+                $task = Task::where("name", $data["name"])->where("user_id", $data["user_id"])->first();
 
                 if(is_null($task)) {
                     $task = Task::create($data);
